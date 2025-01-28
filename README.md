@@ -15,14 +15,14 @@ icuscoreR is intended to collate `R` functions which apply clinical
 scoring systems to ICU patient data.
 
 Currently a set of function calculate the Acute Physiology and Chronic
-Health Evaluation (APACHE) III score Knaus et al. (1991) for patient
+Health Evaluation (APACHE) III score (Knaus et al. (1991)) for patient
 data pertaining to the first 24 hours of admission to an intensive care
 unit.
 
 The `R` Data Frame must contain the field names described in the
 Australia New Zealand Intensive Care Society (ANZICS) Adult Patient Data
-(APD) Data Dictionary ANZICS Centre for Outcome and Resource Evaluation
-(2022). All field names are case insensitive, including a mandatory
+(APD) Data Dictionary (ANZICS Centre for Outcome and Resource Evaluation
+(2022)). All field names are case insensitive, including a mandatory
 `IcuEpisodeId` field. `HI` and `LO` suffixes on field names such as
 `HRHI` (the highest heart rate in 24 hours from ICU admission) are
 optional, so `HRHI` can be `HR` if only 1 extreme is available, or if
@@ -119,6 +119,8 @@ please:
   the pull request.
 - Code style follows the [Tidyverse style
   guide](https://style.tidyverse.org/)
+
+## References
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">

@@ -24,12 +24,12 @@ knitr::opts_chunk$set(
 icuscoreR is intended to collate `R` functions which apply clinical scoring systems to ICU patient data.
 
 Currently a set of function calculate the Acute Physiology and Chronic Health Evaluation
-(APACHE) III score @Knaus1991-be for patient data pertaining to the first 24 hours of
+(APACHE) III score (@Knaus1991-be) for patient data pertaining to the first 24 hours of
 admission to an intensive care unit.
 
 The `R` Data Frame must contain the field names described in the
 Australia New Zealand Intensive Care Society (ANZICS) Adult Patient Data (APD)
-Data Dictionary @apddatadictionary. All field names are case insensitive, including a mandatory `IcuEpisodeId` field. `HI` and `LO` suffixes on field names such as `HRHI` (the highest heart rate in 24 hours from ICU admission) are optional, so `HRHI` can be `HR` if only 1 extreme is available, or if there are multiple rows of data for each `IcuEpisodeId`.
+Data Dictionary (@apddatadictionary). All field names are case insensitive, including a mandatory `IcuEpisodeId` field. `HI` and `LO` suffixes on field names such as `HRHI` (the highest heart rate in 24 hours from ICU admission) are optional, so `HRHI` can be `HR` if only 1 extreme is available, or if there are multiple rows of data for each `IcuEpisodeId`.
 
 For greater detail, read `vignette(apache3)`.
 
@@ -99,3 +99,5 @@ there is a [reasonable case to do so](https://r-pkgs.org/dependencies-mindset-ba
 - Please include documentation(`roxygen2`) and tests (`testthat`) with the pull
 request.
 - Code style follows the [Tidyverse style guide](https://style.tidyverse.org/)
+
+## References
