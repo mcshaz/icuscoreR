@@ -20,11 +20,12 @@ to the first 24 hours of admission to an intensive care unit.
 
 The `R` Data Frame must contain the field names described in the
 \[Australia New Zealand Intensive Care Society (ANZICS) Adult Patient
-Data (APD) Data Dictionary\]\[^2\]. The field names are case
-insensitive, and the `HI` and `LO` suffixes on field names such as
-`HRHI` are optional (although recommended in order to obtain the most
-accurate Apache III score). Each `data.frame` must have an
-`IcuEpisodeId` field.
+Data (APD) Data Dictionary\]\[^2\]. All field names are case
+insensitive, including a mandatory `IcuEpisodeId` field. `HI` and `LO`
+suffixes on field names such as `HRHI` (the highest heart rate in 24
+hours from ICU admission) are optional, so `HRHI` can be `HR` if only 1
+extreme is available, or if there are multiple rows of data for each
+`IcuEpisodeId`.
 
 For greater detail, read `vignette(apache3)`.
 
@@ -36,16 +37,17 @@ Tools](https://www.anzics.org/data-collection-tools/).
 ## Installation
 
 You can install the development version of [icuscoreR on
-GitHub](https://github.com/mcshaz/icuscorer) with:
+GitHub](https://github.com/mcshaz/icuscoreR) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("mcshaz/icuscoreR")
+pak::pkg_install("mcshaz/icuscoreR")
 ```
 
 ## Example
 
-See the `vignette(apache3)` for a more detailed explanation
+See the `vignette(apache3)` for an in depth explanation of the following
+example
 
 ``` r
 library(icuscorer)
@@ -63,3 +65,41 @@ ap3.scores <- merge(ap3.scores, ap3.comorb.scores, by = "icuepisodeid")
 rowSums(ap3.scores[,endsWith(colnames(ap3.scores), 'ap3score')], na.rm = TRUE)
 #> [1] 107  45
 ```
+
+*Note* - At present the use cases for this package seem too niche to
+publish it to CRAN , but please feel free to create an issue if you
+would prefer this to simplify your workflow. - Thank you to bgulbis who
+wrote and published [icuriskr](https://github.com/bgulbis/icuriskr). At
+the time of writing, I believe `icuriskr` is a stale repository,
+including a dependency on the `ICD` (International Classification of
+Diseases) `R` Package which has been removed from CRAN, and also beware
+`icuriskr` contains a minor error in the calculation of pH component of
+the Apache III score - If you believe other (adult or paediatric) scores
+should be added (APACHE2, ANZROD, PIM2, PIM3, Trauma Severity Score,
+SOFA …) please create an issue (+/- pull request).
+
+## Design Principles
+
+- Consider performance and while maintaing readability, try to keep
+  functions vectorised (e.g. avoid `dplyr::rowwise`). It is conceivable
+  these functions could be executed on a multinational ICU database with
+  100 000 rows of patient data (and many fold more Arterial Blood Gas
+  results).
+- Consider different use cases and database structures
+- Reference clear and publicly available data dictionaries
+- Generate composite scores where feasible - the researcher using the
+  score may wish to include or exclude certain components because that
+  is the exact component under investigation
+- Differentiate NA from a score of 0 even if 0 is the final score
+  contributed
+
+## Contributing
+
+Contributions are welcome. However before submitting a pull request
+please: - Create a Github issue first. - Try and minimise dependencies
+beyond those existing (e.g. `DPLYR`) unless there is a reasonable case
+to do so\[^3\]. - Please include documentation(`roxygen2`) and tests
+(`testthat`) with the pull request. - Code style follows the [Tidyverse
+style guide](https://style.tidyverse.org/)
+
+## References
