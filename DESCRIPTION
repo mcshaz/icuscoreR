@@ -1,0 +1,34 @@
+Package: icuscorer
+Type: Package
+Title: Intensive care patient risk Scoring systems
+Version: 0.1.0
+Authors@R: person("McSharry", "Brent", 
+                  email = "bmcshaz@gmail.com", 
+                  role = c("aut", "cre"),
+                  comment = c(ORCID = "0009-0000-9735-6158"))
+Description: Physiological, lab and diagnostic data (in a data.frame) are used to
+    calculate published, validated risk scores for admissions to intensive care units
+    (ICU). Risk scores are returned per ICU episode, as individual score components 
+    (pH score etc.).
+    Currently only implemented for Acute Physiology And Chronic Health Evaluation
+    (Apache) III score, but other ICU scoring systems will be added.
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    magrittr,
+    rlang,
+    stats,
+    tidyr
+Suggests:
+    tibble,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Depends: 
+    R (>= 2.10)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+License: AGPL (>= 3)
+VignetteBuilder: knitr
