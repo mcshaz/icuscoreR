@@ -66,6 +66,7 @@ ap3.scores
 ```
 
 *Note*
+
 - At present the use cases for this package seem too niche to publish it to CRAN
 , but please feel free to create an issue if you would prefer this to simplify
 your workflow.
@@ -75,7 +76,7 @@ dependency on the `ICD` (International Classification of Diseases) `R` Package
 which has been removed from CRAN, and also beware `icuriskr` contains a minor 
 error in the calculation of pH component of the Apache III score
 - If you believe other (adult or paediatric) scores should be added
-(APACHE2, ANZROD, PIM2, PIM3, Trauma Severity Score, SOFA ...) please create an
+(APACHE2, ANZROD, PIM2, PIM3, Trauma Severity Score, SOFA ...) please feel free to create an
 issue (+/- pull request).
 
 ## Design Principles

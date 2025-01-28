@@ -79,17 +79,21 @@ ap3.scores
 #> 2           0           0               0       45
 ```
 
-*Note* - At present the use cases for this package seem too niche to
-publish it to CRAN , but please feel free to create an issue if you
-would prefer this to simplify your workflow. - Thank you to bgulbis who
-wrote and published [icuriskr](https://github.com/bgulbis/icuriskr). At
-the time of writing, I believe `icuriskr` is a stale repository,
-including a dependency on the `ICD` (International Classification of
-Diseases) `R` Package which has been removed from CRAN, and also beware
-`icuriskr` contains a minor error in the calculation of pH component of
-the Apache III score - If you believe other (adult or paediatric) scores
-should be added (APACHE2, ANZROD, PIM2, PIM3, Trauma Severity Score,
-SOFA …) please create an issue (+/- pull request).
+*Note*
+
+- At present the use cases for this package seem too niche to publish it
+  to CRAN , but please feel free to create an issue if you would prefer
+  this to simplify your workflow.
+- Thank you to bgulbis who wrote and published
+  [icuriskr](https://github.com/bgulbis/icuriskr). At the time of
+  writing, I believe `icuriskr` is a stale repository, including a
+  dependency on the `ICD` (International Classification of Diseases) `R`
+  Package which has been removed from CRAN, and also beware `icuriskr`
+  contains a minor error in the calculation of pH component of the
+  Apache III score
+- If you believe other (adult or paediatric) scores should be added
+  (APACHE2, ANZROD, PIM2, PIM3, Trauma Severity Score, SOFA …) please
+  feel free to create an issue (+/- pull request).
 
 ## Design Principles
 
@@ -137,7 +141,9 @@ Database Data Dictionary*. 6.1 ed. Prahran, Victoria, Australia.
 
 Knaus, William A, Douglas P Wagner, Elizabeth A Draper, Jack E
 Zimmerman, Marilyn Bergner, Paulo G Bastos, Carl A Sirio, et al. 1991.
-“The APACHE III Prognostic System.” *Chest* 100 (6): 1619–36.
+“[The APACHE III Prognostic
+System](https://www.ncbi.nlm.nih.gov/pubmed/1959406).” *Chest* 100 (6):
+1619–36.
 
 </div>
 
