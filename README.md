@@ -15,17 +15,18 @@ icuscoreR is intended to collate `R` functions which apply clinical
 scoring systems to ICU patient data.
 
 Currently a set of function calculate the Acute Physiology and Chronic
-Health Evaluation (APACHE) III <score@Knaus1991-be> for patient data
-pertaining to the first 24 hours of admission to an intensive care unit.
+Health Evaluation (APACHE) III score Knaus et al. (1991) for patient
+data pertaining to the first 24 hours of admission to an intensive care
+unit.
 
 The `R` Data Frame must contain the field names described in the
-\[Australia New Zealand Intensive Care Society (ANZICS) Adult Patient
-Data (APD) Data Dictionary\]ANZICS Centre for Outcome and Resource
-Evaluation (2022). All field names are case insensitive, including a
-mandatory `IcuEpisodeId` field. `HI` and `LO` suffixes on field names
-such as `HRHI` (the highest heart rate in 24 hours from ICU admission)
-are optional, so `HRHI` can be `HR` if only 1 extreme is available, or
-if there are multiple rows of data for each `IcuEpisodeId`.
+Australia New Zealand Intensive Care Society (ANZICS) Adult Patient Data
+(APD) Data Dictionary ANZICS Centre for Outcome and Resource Evaluation
+(2022). All field names are case insensitive, including a mandatory
+`IcuEpisodeId` field. `HI` and `LO` suffixes on field names such as
+`HRHI` (the highest heart rate in 24 hours from ICU admission) are
+optional, so `HRHI` can be `HR` if only 1 extreme is available, or if
+there are multiple rows of data for each `IcuEpisodeId`.
 
 For greater detail, read `vignette(apache3)`.
 
@@ -95,7 +96,7 @@ SOFA …) please create an issue (+/- pull request).
 - Consider performance and while maintaing readability, try to keep
   functions vectorised (e.g. avoid `dplyr::rowwise`). It is conceivable
   these functions could be executed on a multinational ICU database with
-  100 000 rows of patient data (and many fold more Arterial Blood Gas
+  100 000 rows of patient data (and many fold more Arterial Blood Gas
   results).
 - Consider different use cases and database structures
 - Reference clear and publicly available data dictionaries
@@ -108,13 +109,16 @@ SOFA …) please create an issue (+/- pull request).
 ## Contributing
 
 Contributions are welcome. However before submitting a pull request
-please: - Create a Github issue first. - Try and minimise dependencies
-beyond those existing (e.g. `DPLYR`) unless there is a (reasonable case
-to do
-so)\[<https://r-pkgs.org/dependencies-mindset-background.html>\]. -
-Please include documentation(`roxygen2`) and tests (`testthat`) with the
-pull request. - Code style follows the [Tidyverse style
-guide](https://style.tidyverse.org/)
+please:
+
+- Create a Github issue first.
+- Try and minimise dependencies beyond those existing (e.g. `DPLYR`)
+  unless there is a [reasonable case to do
+  so](https://r-pkgs.org/dependencies-mindset-background.html).
+- Please include documentation(`roxygen2`) and tests (`testthat`) with
+  the pull request.
+- Code style follows the [Tidyverse style
+  guide](https://style.tidyverse.org/)
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">
@@ -124,6 +128,14 @@ entry-spacing="0">
 ANZICS Centre for Outcome and Resource Evaluation. 2022. *Adult Patient
 Database Data Dictionary*. 6.1 ed. Prahran, Victoria, Australia.
 <https://www.anzics.org/wp-content/uploads/2021/03/ANZICS-APD-Dictionary-Version-6.1.pdf>.
+
+</div>
+
+<div id="ref-Knaus1991-be" class="csl-entry">
+
+Knaus, William A, Douglas P Wagner, Elizabeth A Draper, Jack E
+Zimmerman, Marilyn Bergner, Paulo G Bastos, Carl A Sirio, et al. 1991.
+“The APACHE III Prognostic System.” *Chest* 100 (6): 1619–36.
 
 </div>
 
