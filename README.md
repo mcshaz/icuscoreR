@@ -15,17 +15,17 @@ icuscoreR is intended to collate `R` functions which apply clinical
 scoring systems to ICU patient data.
 
 Currently a set of function calculate the Acute Physiology and Chronic
-Health Evaluation (APACHE) III score\[^1\] for patient data pertaining
-to the first 24 hours of admission to an intensive care unit.
+Health Evaluation (APACHE) III <score@Knaus1991-be> for patient data
+pertaining to the first 24 hours of admission to an intensive care unit.
 
 The `R` Data Frame must contain the field names described in the
 \[Australia New Zealand Intensive Care Society (ANZICS) Adult Patient
-Data (APD) Data Dictionary\]\[^2\]. All field names are case
-insensitive, including a mandatory `IcuEpisodeId` field. `HI` and `LO`
-suffixes on field names such as `HRHI` (the highest heart rate in 24
-hours from ICU admission) are optional, so `HRHI` can be `HR` if only 1
-extreme is available, or if there are multiple rows of data for each
-`IcuEpisodeId`.
+Data (APD) Data Dictionary\]ANZICS Centre for Outcome and Resource
+Evaluation (2022). All field names are case insensitive, including a
+mandatory `IcuEpisodeId` field. `HI` and `LO` suffixes on field names
+such as `HRHI` (the highest heart rate in 24 hours from ICU admission)
+are optional, so `HRHI` can be `HR` if only 1 extreme is available, or
+if there are multiple rows of data for each `IcuEpisodeId`.
 
 For greater detail, read `vignette(apache3)`.
 
@@ -62,8 +62,20 @@ ap3.abg.scores <- apache3_resp(ap3_appendix_gas)
 ap3.scores <- merge(ap3.scores, ap3.abg.scores, by = "icuepisodeid")
 ap3.scores <- merge(ap3.scores, ap3.comorb.scores, by = "icuepisodeid")
 # Calculating the total Apache III score using
-rowSums(ap3.scores[,endsWith(colnames(ap3.scores), 'ap3score')], na.rm = TRUE)
-#> [1] 107  45
+ap3.scores$totalap3 <- rowSums(ap3.scores[,endsWith(colnames(ap3.scores), 'ap3score')], na.rm = TRUE)
+ap3.scores
+#>   icuepisodeid age.ap3score hr.ap3score map.ap3score temp.ap3score rr.ap3score
+#> 1            1            5           7            6             0           9
+#> 2            2           17           5            0             0           0
+#>   hct.ap3score wcc.ap3score creat.ap3score urineop.ap3score urea.ap3score
+#> 1            3            5              7                5            12
+#> 2            3            0              4                4             7
+#>   Na.ap3score album.ap3score bili.ap3score gluc.ap3score gcs.ap3score
+#> 1           0              6             6             3            3
+#> 2           0              0             5             0            0
+#>   o2.ap3score ph.ap3score comorb.ap3score totalap3
+#> 1          11           9              10      107
+#> 2           0           0               0       45
 ```
 
 *Note* - At present the use cases for this package seem too niche to
@@ -97,9 +109,22 @@ SOFA …) please create an issue (+/- pull request).
 
 Contributions are welcome. However before submitting a pull request
 please: - Create a Github issue first. - Try and minimise dependencies
-beyond those existing (e.g. `DPLYR`) unless there is a reasonable case
-to do so\[^3\]. - Please include documentation(`roxygen2`) and tests
-(`testthat`) with the pull request. - Code style follows the [Tidyverse
-style guide](https://style.tidyverse.org/)
+beyond those existing (e.g. `DPLYR`) unless there is a (reasonable case
+to do
+so)\[<https://r-pkgs.org/dependencies-mindset-background.html>\]. -
+Please include documentation(`roxygen2`) and tests (`testthat`) with the
+pull request. - Code style follows the [Tidyverse style
+guide](https://style.tidyverse.org/)
 
-## References
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+
+<div id="ref-apddatadictionary" class="csl-entry">
+
+ANZICS Centre for Outcome and Resource Evaluation. 2022. *Adult Patient
+Database Data Dictionary*. 6.1 ed. Prahran, Victoria, Australia.
+<https://www.anzics.org/wp-content/uploads/2021/03/ANZICS-APD-Dictionary-Version-6.1.pdf>.
+
+</div>
+
+</div>

@@ -1,7 +1,7 @@
 ---
 title: "ApacheIII score"
 output: rmarkdown::html_vignette
-bibliography: "REFERENCES.bib"
+bibliography: "../REFERENCES.bib"
 vignette: >
   %\VignetteIndexEntry{ApacheIII score}
   %\VignetteEngine{knitr::rmarkdown}
