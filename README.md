@@ -102,21 +102,6 @@ ap3.scores
   (APACHE2, ANZROD, PIM2, PIM3, Trauma Severity Score, SOFA …) please
   feel free to create an issue (+/- pull request).
 
-## Design Principles
-
-- Consider performance and while maintaing readability, try to keep
-  functions vectorised (e.g. avoid `dplyr::rowwise`). It is conceivable
-  these functions could be executed on a multinational ICU database with
-  100 000 rows of patient data (and many fold more Arterial Blood Gas
-  results).
-- Consider different use cases and database structures
-- Reference clear and publicly available data dictionaries
-- Generate composite scores where feasible - the researcher using the
-  score may wish to include or exclude certain components because that
-  is the exact component under investigation
-- Differentiate NA from a score of 0 even if 0 is the final score
-  contributed
-
 ## Contributing
 
 Contributions are welcome. However before submitting a pull request
@@ -130,6 +115,22 @@ please:
   the pull request.
 - Code style follows the [Tidyverse style
   guide](https://style.tidyverse.org/)
+- Read the design principles of the library below
+
+### Design Principles
+
+- Consider performance and while maintaing readability, try to keep
+  functions vectorised (e.g. avoid `dplyr::rowwise`). It is conceivable
+  these functions could be executed on a multinational ICU database with
+  100 000 rows of patient data (and many fold more Arterial Blood Gas
+  results).
+- Consider different use cases and database structures
+- Reference clear and publicly available data dictionaries
+- Generate composite scores where feasible - the researcher using the
+  score may wish to include or exclude certain components because that
+  is the exact component under investigation
+- Differentiate NA from a score of 0 even if 0 is the final score
+  contributed
 
 ## References
 
