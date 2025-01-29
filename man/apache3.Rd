@@ -35,9 +35,12 @@ Knaus WA, Wagner DP, Draper EA, et al. The APACHE III prognostic system. Risk pr
 https://www.anzics.org/wp-content/uploads/2021/03/ANZICS-APD-Dictionary-Version-6.1.pdf (ANZICS APD Data Dictionary)
 }
 \seealso{
-Other apache3: 
+Other Apache3: 
 \code{\link{add_miss_ap3_cols}()},
+\code{\link{ap3_appendix_example}},
+\code{\link{ap3_comorbidity_scores}},
 \code{\link{apache3_comorb}()},
-\code{\link{apache3_resp}()}
+\code{\link{apache3_resp}()},
+\code{\link{lab_conversions}}
 }
-\concept{apache3}
+\concept{Apache3}

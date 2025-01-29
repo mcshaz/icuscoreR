@@ -23,8 +23,11 @@ the test result to the required units (if the field data is in alternative units
 }
 \seealso{
 Other Apache3: 
+\code{\link{add_miss_ap3_cols}()},
 \code{\link{ap3_appendix_example}},
-\code{\link{ap3_appendix_gas}},
+\code{\link{apache3}()},
+\code{\link{apache3_comorb}()},
+\code{\link{apache3_resp}()},
 \code{\link{lab_conversions}}
 }
 \concept{Apache3}

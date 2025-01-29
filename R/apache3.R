@@ -22,7 +22,7 @@
 #' data("ap3_appendix_example")
 #' ap3.scores <- apache3(ap3_appendix_example)
 #' ap3.scores
-#' @family apache3
+#' @family Apache3
 #' @export
 apache3 <- function(df) {
   return_var <- df %>%

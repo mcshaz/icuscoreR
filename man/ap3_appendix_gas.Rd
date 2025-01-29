@@ -34,15 +34,5 @@ is used rather than PO2 (and PaCO2) The \code{apache3_resp} functions in this
 package work with either abbreviation, but  PaO2 is clearer when
 differentiating arterial from venous, central venous or mixed venous gasses.
 }
-\seealso{
-Other Apache3: 
-\code{\link{ap3_appendix_example}},
-\code{\link{ap3_comorbidity_scores}},
-\code{\link{lab_conversions}}
-
-Other Apache3_data: 
-\code{\link{ap3_appendix_example}}
-}
-\concept{Apache3}
-\concept{Apache3_data}
+\concept{Apache}
 \keyword{datasets}

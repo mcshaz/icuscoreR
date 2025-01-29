@@ -23,7 +23,7 @@
 #' data("ap3_appendix_example")
 #' ap3.comorb.score <- apache3_comorb(ap3_appendix_example)
 #' ap3.comorb.score
-#' @family apache3
+#' @family Apache3
 #' @export
 apache3_comorb <- function(comorbs) {
   comorbs %>%

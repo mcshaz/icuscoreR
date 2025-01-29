@@ -8,7 +8,7 @@
 #' @format ## `ap3_appendix_example`
 #' A data frame with 2 rows and 22 columns:
 #' \describe{
-#'   \item{IcuEpisodeId}{A unique identified for each ICU admission episode},
+#'   \item{IcuEpisodeId}{A unique identified for each ICU admission episode}
 #'   \item{age}{Age in years}
 #'   \item{comorb}{Apache III Comorbidity diagnosis as a string - use `data("ap3comorbidity_scores")` to see acceptable terms & associated score}
 #'   \item{elect_surg}{Was the ICU admission after elective surgery (comorb is not assigned a score)}
@@ -38,7 +38,6 @@
 #' @usage data(ap3_appendix_example)
 #' @source <https://pubmed.ncbi.nlm.nih.gov/1959406/>
 #' @family Apache3
-#' @family Apache3_data
 NULL
 
 
@@ -67,6 +66,5 @@ NULL
 #' @keywords datasets
 #' @usage data(ap3_appendix_gas)
 #' @source <https://pubmed.ncbi.nlm.nih.gov/1959406/>
-#' @family Apache3
-#' @family Apache3_data
+#' @family Apache
 NULL

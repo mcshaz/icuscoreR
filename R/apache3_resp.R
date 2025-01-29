@@ -18,7 +18,7 @@
 #' data("ap3_appendix_gas")
 #' ap3.gas.scores <- apache3_resp(ap3_appendix_gas)
 #' ap3.gas.scores
-#' @family apache3
+#' @family Apache3
 #' @export
 apache3_resp <- function(abgs) {
   abgs %>%

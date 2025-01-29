@@ -35,9 +35,12 @@ ap3.comorb.score
 Knaus WA, Wagner DP, Draper EA, et al. The APACHE III prognostic system. Risk prediction of hospital mortality for critically ill hospitalized adults. Chest. 1991 Dec;100(6):1619-36. doi: 10.1378/chest.100.6.1619. PMID: 1959406.
 }
 \seealso{
-Other apache3: 
+Other Apache3: 
 \code{\link{add_miss_ap3_cols}()},
+\code{\link{ap3_appendix_example}},
+\code{\link{ap3_comorbidity_scores}},
 \code{\link{apache3}()},
-\code{\link{apache3_resp}()}
+\code{\link{apache3_resp}()},
+\code{\link{lab_conversions}}
 }
-\concept{apache3}
+\concept{Apache3}

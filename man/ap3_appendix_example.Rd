@@ -9,7 +9,7 @@
 
 A data frame with 2 rows and 22 columns:
 \describe{
-\item{IcuEpisodeId}{A unique identified for each ICU admission episode},
+\item{IcuEpisodeId}{A unique identified for each ICU admission episode}
 \item{age}{Age in years}
 \item{comorb}{Apache III Comorbidity diagnosis as a string - use \code{data("ap3comorbidity_scores")} to see acceptable terms & associated score}
 \item{elect_surg}{Was the ICU admission after elective surgery (comorb is not assigned a score)}
@@ -50,13 +50,12 @@ The data format is according to the ANZICS APD data dictionary
 }
 \seealso{
 Other Apache3: 
-\code{\link{ap3_appendix_gas}},
+\code{\link{add_miss_ap3_cols}()},
 \code{\link{ap3_comorbidity_scores}},
+\code{\link{apache3}()},
+\code{\link{apache3_comorb}()},
+\code{\link{apache3_resp}()},
 \code{\link{lab_conversions}}
-
-Other Apache3_data: 
-\code{\link{ap3_appendix_gas}}
 }
 \concept{Apache3}
-\concept{Apache3_data}
 \keyword{datasets}

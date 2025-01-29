@@ -86,7 +86,7 @@ replace_matches <- function(x, dictionary, unmatched_as_na = TRUE) {
 #' # a data.frame with many required columns missing
 #' sparse.data <- data.frame(hrhi=120,maphi=55)
 #' add_miss_ap3_cols(sparse.data)
-#' @family apache3
+#' @family Apache3
 #' @export
 add_miss_ap3_cols <- function(df) {
   truncate_lohi <- function(x) {

@@ -33,8 +33,11 @@ data.frame(
 }
 \seealso{
 Other Apache3: 
+\code{\link{add_miss_ap3_cols}()},
 \code{\link{ap3_appendix_example}},
-\code{\link{ap3_appendix_gas}},
-\code{\link{ap3_comorbidity_scores}}
+\code{\link{ap3_comorbidity_scores}},
+\code{\link{apache3}()},
+\code{\link{apache3_comorb}()},
+\code{\link{apache3_resp}()}
 }
 \concept{Apache3}
