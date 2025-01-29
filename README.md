@@ -43,7 +43,7 @@ You can install the development version of [icuscoreR on
 GitHub](https://github.com/mcshaz/icuscoreR) with:
 
 ``` r
-# remotes will be installed if you have devtools installed
+# 'remotes' package will be installed if devtools is installed
 # install.packages("remotes")  
 remotes::install_github("mcshaz/icuscoreR", build_vignettes = TRUE)
 ```
