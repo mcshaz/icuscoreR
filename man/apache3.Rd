@@ -16,9 +16,9 @@ A \code{tibble} containing age, physiology and lab components of the
 APACHE III score for each \code{IcuEpisodeId}
 }
 \description{
-Given a \code{data.frame} or tibble  which complies with nomenclature outlined in the
+Given a \code{data.frame} or \code{tibble}  which complies with nomenclature outlined in the
 ANZICS data dictionary, this will generate a data-set containing each component of the
-APACHE III score for each \code{IcuEpisodeId}
+APACHE III score for each 'IcuEpisodeId'
 }
 \details{
 See the \href{../doc/apache3.html}{\code{vignette("Apache3", package = "icuscorer")}}

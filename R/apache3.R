@@ -1,9 +1,9 @@
 #' Generate Apache III composite scores
 #'
 #' @description
-#' Given a `data.frame` or tibble  which complies with nomenclature outlined in the
+#' Given a `data.frame` or `tibble`  which complies with nomenclature outlined in the
 #' ANZICS data dictionary, this will generate a data-set containing each component of the
-#' APACHE III score for each `IcuEpisodeId`
+#' APACHE III score for each 'IcuEpisodeId'
 #'
 #' @details
 #' See the \href{../doc/apache3.html}{\code{vignette("Apache3", package = "icuscorer")}}
