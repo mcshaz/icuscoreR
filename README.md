@@ -21,12 +21,13 @@ unit.
 
 The `R` Data Frame must contain the field names described in the
 Australia New Zealand Intensive Care Society (ANZICS) Adult Patient Data
-(APD) Data Dictionary (ANZICS Centre for Outcome and Resource Evaluation
-(2022)). All field names are case insensitive, including a mandatory
-`IcuEpisodeId` field. `HI` and `LO` suffixes on field names such as
-`HRHI` (the highest heart rate in 24 hours from ICU admission) are
-optional, so `HRHI` can be `HR` if only 1 extreme is available, or if
-there are multiple rows of data for each `IcuEpisodeId`.
+(APD) Data Dictionary (Australian and New Zealand Intensive Care Society
+Centre for Outcome and Resource Evaluation (2022)). All field names are
+case insensitive, including a mandatory `IcuEpisodeId` field. `HI` and
+`LO` suffixes on field names such as `HRHI` (the highest heart rate in
+24 hours from ICU admission) are optional, so `HRHI` can be `HR` if only
+1 extreme is available, or if there are multiple rows of data for each
+`IcuEpisodeId`.
 
 For greater detail, read `vignette(apache3)`.
 
@@ -41,7 +42,8 @@ You can install the development version of [icuscoreR on
 GitHub](https://github.com/mcshaz/icuscoreR) with:
 
 ``` r
-# install.packages("pak")
+# use devtools or remotes if you have either package installed, otherwise
+# install.packages("pak") 
 pak::pkg_install("mcshaz/icuscoreR")
 ```
 
@@ -131,8 +133,9 @@ entry-spacing="0">
 
 <div id="ref-apddatadictionary" class="csl-entry">
 
-ANZICS Centre for Outcome and Resource Evaluation. 2022. *Adult Patient
-Database Data Dictionary*. 6.1 ed. Prahran, Victoria, Australia.
+Australian and New Zealand Intensive Care Society Centre for Outcome and
+Resource Evaluation. 2022. *Adult Patient Database Data Dictionary*. 6.1
+ed. Prahran, Victoria, Australia.
 <https://www.anzics.org/wp-content/uploads/2021/03/ANZICS-APD-Dictionary-Version-6.1.pdf>.
 
 </div>
