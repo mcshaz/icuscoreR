@@ -29,7 +29,8 @@ case insensitive, including a mandatory `IcuEpisodeId` field. `HI` and
 1 extreme is available, or if there are multiple rows of data for each
 `IcuEpisodeId`.
 
-For greater detail, read `vignette(apache3)`.
+For greater detail, after installing the package as below, read
+`vignette(apache3)`.
 
 Extensive and clearly written resources regarding variable collection,
 nomeclature and units of measure used by this package are available,
@@ -42,10 +43,14 @@ You can install the development version of [icuscoreR on
 GitHub](https://github.com/mcshaz/icuscoreR) with:
 
 ``` r
-# use devtools or remotes if you have either package installed, otherwise
-# install.packages("pak") 
-pak::pkg_install("mcshaz/icuscoreR")
+# remotes will be installed if you have devtools installed
+# install.packages("remotes")  
+remotes::install_github("mcshaz/icuscoreR", build_vignettes = TRUE)
 ```
+
+Alternatively, you may also wish to use
+`pak::pkg_install("mcshaz/icuscoreR")`, Although you will not have
+access to the `vignette("apache3")`.
 
 ## Example
 
