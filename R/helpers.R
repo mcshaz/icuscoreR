@@ -125,7 +125,7 @@ add_miss_ap3_cols <- function(df) {
       df$ICUEPISODEID <- seq_len(nrow(df))
     }
   } else {
-    cat("The column names conform to required nomenclature")
+    cat("The column names conform to required nomenclature\n")
   }
   df
 }

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Apache 3</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Apache 3</h1>
+
+
+
+<div id="background-to-the-apache-iii-score" class="section level2">
+<h2>Background to the APACHE III Score</h2>
+<p>The Acute Physiology And Chronic Health Evaluation (APACHE) III <span class="citation">Knaus et al. (1991)</span> is a scoring system for
+patients admitted to an intensive Care Unit (ICU). The score assigned is
+based on age, presence of one of a small number of chronic health
+conditions (see [ap3_comorbidity_scores]), physiological observations
+(obs) such as heart rate, and laboratory results including glucose,
+Arterial Blood Gasses (ABG), serum sodium etc. Scores are based on the
+highest and lowest values within a 24 hour interval beginning at ICU
+admission. For some measures, only if no data were available in this 24
+hours, patient measures can be used from the hour before ICU
+admission.</p>
+<p>The Apache III score is used extensively in ICU literature,
+particularly as a predictor of intensive care mortality, but also
+morbidity.</p>
+<div id="caveats-in-application-of-apache-iii" class="section level3">
+<h3>Caveats in application of Apache III</h3>
+<ul>
+<li>An individual patient may have multiple hospital admissions, and
+within each hospital admission, may have multiple ICU admissions. The
+score was validated for each ICU admission episode, so please ensure the
+correct identifier is used to group data.</li>
+<li>The original paper is from 1991. While the score is still valid,
+applying coefficients presented in the original paper will not be a
+valid predictor of risk of death, because the cohort of patients
+admitted into ICU, treatments available, and systems of care have all
+changed significantly since publication. Many papers and international
+registries provide coefficients re-calibrated to more contemporary ICU
+mortality.</li>
+<li>Because Apache III scores are generated using data from the 24 hours
+from admission, a researcher must consider carefully how to include the
+score in a risk adjusted analysis. For example, if a treatment is
+designed to raise or lower blood pressure and is administered within 24
+hours of ICU admission, the intervention effect will alter the APACHE
+III score, making the score a poor candidate as a dependent/predictor
+variable when modelling blood pressure. This package returns each
+component of the score, and in this example the researcher should remove
+the blood pressure component before summing together the total
+score.</li>
+<li>If using the Apache scores to benchmark risk adjusted mortality, and
+a significant number of your patient cohort who die, do so within a few
+days of ICU admission, Apache scores (and the Standardised Mortality
+Ratios (SMR) based on this score) may not be an appropriate method of
+risk adjustment when comparing intensive care unit performance. For a
+detailed explanation see <span class="citation">Shann
+(2000)</span>.</li>
+</ul>
+</div>
+</div>
+<div id="data-format" class="section level2">
+<h2>Data Format</h2>
+<p>The <code>R</code> Data Frame must contain the field names (case
+insensitive) described in the <span class="citation">Australian and New
+Zealand Intensive Care Society Centre for Outcome and Resource
+Evaluation (2022)</span> Data Dictionary. The field names are case
+insensitive. The ‘HI’ and ‘LO’ suffixes on field names such as ‘HRHI’
+and ‘HRLO’ are optional (i.e. ‘HR’ is acceptable, for instance if only 1
+extreme value is available, or if the ‘HR’ data for each ‘IcuEpisodeId’
+is spread over multiple rows). Each <code>data.frame</code> must have an
+‘IcuEpisodeId’ field.</p>
+</div>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>Appendix B of <span class="citation">Knaus et al. (1991)</span>
+describes 2 patients and calculation of their corresponding Apache III
+score in detail. These data are included in a <code>data.frame</code>.
+After loading the data, the [add_miss_ap3_cols()] function checks the
+column names of the <code>data.frame</code> conform to the column names
+required. Any missing columns are added with the appropriate name,
+consisting entirely of <code>NA</code> values. This is important to
+check before calculating the Apache III score. The arterial blood gasses
+(ABGs) are in a separate <code>data.frame</code>.</p>
+<p><em>note</em> Adhering to the data dictionary, the serum sodium
+column is named after its atomic symbol ‘Na’. This can be confusing in
+<code>R</code>, where <code>NA</code> is a scalar representing unknown
+or missing values.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(icuscorer)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;ap3_appendix_example&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>ap3_patient_data <span class="ot">&lt;-</span> <span class="fu">add_miss_ap3_cols</span>(ap3_appendix_example)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; The column names conform to required nomenclature</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;ap3_appendix_gas&quot;</span>)</span></code></pre></div>
+<div id="units-of-measure" class="section level3">
+<h3>Units of measure</h3>
+<p>Please note the units for lab data are all in mmol or μmol/L as
+outlined for each field in the Data Dictionary (<span class="citation">Australian and New Zealand Intensive Care Society
+Centre for Outcome and Resource Evaluation (2022)</span>). If any
+columns are recorded in mg/dL theses data can be converted using a
+<code>data.frame</code> named ‘lab_conversions’ as below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>my.icu.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">creatinine =</span> <span class="fu">c</span>(<span class="fl">2.2</span>, <span class="fl">1.8</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">urea_highest24 =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">22</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">albumin =</span> <span class="fu">c</span>(<span class="fl">2.4</span>, <span class="fl">2.8</span>), <span class="co"># g/dl</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">bilirubin =</span> <span class="fu">c</span>(<span class="fl">3.3</span>, <span class="fl">2.5</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">glucose =</span> <span class="fu">c</span>(<span class="dv">246</span>, <span class="dv">190</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;lab_conversions&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>lab_conversions </span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt;       reqired_units alternative_units to_required</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; ALBUM           g/L              g/dL    10.00000</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; BILI         µmol/L             mg/dl    17.10000</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; CREAT        µmol/L             mg/dL    88.42000</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; GLUC         mmol/L             mg/dL     0.05550</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; UREA         mmol/L         BUN mg/dL     0.35710</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; PO2            mmHg               kPa     7.50062</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="fu">within</span>(my.icu.data, {</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    creat <span class="ot">&lt;-</span> creatinine <span class="sc">*</span> lab_conversions[<span class="st">&quot;CREAT&quot;</span>, <span class="st">&quot;to_required&quot;</span>] <span class="co"># from mg/dl</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    urea <span class="ot">&lt;-</span> urea_highest24 <span class="sc">*</span> lab_conversions[<span class="st">&quot;UREA&quot;</span>, <span class="st">&quot;to_required&quot;</span>] <span class="co"># from mg/dl</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    album <span class="ot">&lt;-</span> albumin <span class="sc">*</span><span class="dv">10</span> <span class="co"># from g/dl to g/L</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    bili <span class="ot">&lt;-</span> bilirubin <span class="sc">*</span> lab_conversions[<span class="st">&quot;BILI&quot;</span>, <span class="st">&quot;to_required&quot;</span>] <span class="co"># from mg/dl</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    gluc <span class="ot">&lt;-</span> glucose <span class="sc">*</span> lab_conversions[<span class="st">&quot;GLUC&quot;</span>, <span class="st">&quot;to_required&quot;</span>] <span class="co"># from mg/dl</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>})</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt;   creatinine urea_highest24 albumin bilirubin glucose   gluc  bili album</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; 1        2.2             85     2.4       3.3     246 13.653 56.43    24</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; 2        1.8             22     2.8       2.5     190 10.545 42.75    28</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt;      urea   creat</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; 1 30.3535 194.524</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; 2  7.8562 159.156</span></span></code></pre></div>
+</div>
+</div>
+<div id="score-generation" class="section level2">
+<h2>Score Generation</h2>
+<p>ABG and comorbidity scores are analysed seperately to the other
+components of the score to reflect real world data structures. It is
+assumed the researcher has filtered the gasses to those obtained within
+24 hours of ICU admission. The comorbidity score is calculated bases on
+simple text comparison, and the [apache3_comorb()] function is primarily
+included for the sake of examples like this. The method you use for
+calculating comorbidities will very much depend on your ICU data
+structure, nomenclature and diagnosis codes. The diagnostic categories
+and assigned Apache III scores can be viewed by loading
+<code>data(&quot;ap3_comorbidity_score&quot;)</code>.</p>
+<p><em>note</em> Apache III methodology states unknown measures are
+assigned an Apache score of 0, but the composite scores propagate
+<code>NA</code>. This is intentional, so that the researcher may examine
+data for “patterns of missingness”. It is assumed coalescing
+<code>NA</code>s to 0 will occur when calculating the total Apache Score
+(below).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>ap3.scores <span class="ot">&lt;-</span> <span class="fu">apache3</span>(ap3_appendix_example)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>ap3.scores</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 16</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;   icuepisodeid age.ap3score hr.ap3score map.ap3score temp.ap3score rr.ap3score</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;          &lt;int&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; 1            1            5           7            6             0           9</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; 2            2           17           5            0             0           0</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; # ℹ 10 more variables: hct.ap3score &lt;dbl&gt;, wcc.ap3score &lt;dbl&gt;,</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; #   creat.ap3score &lt;dbl&gt;, urineop.ap3score &lt;dbl&gt;, urea.ap3score &lt;dbl&gt;,</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; #   Na.ap3score &lt;dbl&gt;, album.ap3score &lt;dbl&gt;, bili.ap3score &lt;dbl&gt;,</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; #   gluc.ap3score &lt;dbl&gt;, gcs.ap3score &lt;int&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>ap3.abg.scores <span class="ot">&lt;-</span> <span class="fu">apache3_resp</span>(ap3_appendix_gas)</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>ap3.abg.scores</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt;   icuepisodeid o2.ap3score ph.ap3score</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt;          &lt;int&gt;       &lt;int&gt;       &lt;int&gt;</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; 1            1          11           9</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; 2            2           0           0</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>ap3.comorb.scores <span class="ot">&lt;-</span> <span class="fu">apache3_comorb</span>(ap3_appendix_example)</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>ap3.comorb.scores</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt;   icuepisodeid comorb.ap3score</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt;          &lt;int&gt;           &lt;int&gt;</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; 1            1              10</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; 2            2               0</span></span></code></pre></div>
+</div>
+<div id="total-apache-iii-score" class="section level2">
+<h2>Total Apache III Score</h2>
+<p>The total Apache III score per ICU episode can be generated by
+merging all the above composite scores, and calculating the row sum
+(excluding <code>NA</code> scores).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># join the 3 data frames to create the total score:</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>ap3.scores <span class="ot">&lt;-</span> <span class="fu">merge</span>(ap3.scores, ap3.abg.scores, <span class="at">by =</span> <span class="st">&quot;icuepisodeid&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>ap3.scores <span class="ot">&lt;-</span> <span class="fu">merge</span>(ap3.scores, ap3.comorb.scores, <span class="at">by =</span> <span class="st">&quot;icuepisodeid&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Calculating the total Apache III score using</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>ap3.scores<span class="sc">$</span>total <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(ap3.scores[,<span class="fu">endsWith</span>(<span class="fu">colnames</span>(ap3.scores), <span class="st">&#39;_ap3score&#39;</span>)], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>ap3.scores</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt;   icuepisodeid age.ap3score hr.ap3score map.ap3score temp.ap3score rr.ap3score</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 1            1            5           7            6             0           9</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 2            2           17           5            0             0           0</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt;   hct.ap3score wcc.ap3score creat.ap3score urineop.ap3score urea.ap3score</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 1            3            5              7                5            12</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 2            3            0              4                4             7</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt;   Na.ap3score album.ap3score bili.ap3score gluc.ap3score gcs.ap3score</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; 1           0              6             6             3            3</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; 2           0              0             5             0            0</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt;   o2.ap3score ph.ap3score comorb.ap3score total</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; 1          11           9              10     0</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; 2           0           0               0     0</span></span></code></pre></div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-apddatadictionary" class="csl-entry">
+Australian and New Zealand Intensive Care Society Centre for Outcome and
+Resource Evaluation. 2022. <em>Adult Patient Database Data
+Dictionary</em>. 6.1 ed. Prahran, Victoria, Australia. <a href="https://www.anzics.org/wp-content/uploads/2021/03/ANZICS-APD-Dictionary-Version-6.1.pdf">https://www.anzics.org/wp-content/uploads/2021/03/ANZICS-APD-Dictionary-Version-6.1.pdf</a>.
+</div>
+<div id="ref-Knaus1991-be" class="csl-entry">
+Knaus, William A, Douglas P Wagner, Elizabeth A Draper, Jack E
+Zimmerman, Marilyn Bergner, Paulo G Bastos, Carl A Sirio, et al. 1991.
+<span>“<a href="https://www.ncbi.nlm.nih.gov/pubmed/1959406">The
+<span>APACHE</span> <span>III</span> Prognostic System</a>.”</span>
+<em>Chest</em> 100 (6): 1619–36.
+</div>
+<div id="ref-Shann2000-zh" class="csl-entry">
+Shann, F. 2000. <span>“<a href="https://www.ncbi.nlm.nih.gov/pubmed/10710593">Mortality Prediction
+Model Is Preferable to <span>APACHE</span></a>.”</span> <em>BMJ</em> 320
+(7236): 714.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
