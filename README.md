@@ -55,7 +55,7 @@ access to the `vignette("apache3")`.
 ## Example
 
 See the `vignette(apache3)` for an in depth explanation of the following
-example
+example:
 
 ``` r
 library(icuscorer)
@@ -91,16 +91,11 @@ ap3.scores
 - At present the use cases for this package seem too niche to publish it
   to CRAN , but please feel free to create an issue if you would prefer
   this to simplify your workflow.
-- Thank you to bgulbis who wrote and published
-  [icuriskr](https://github.com/bgulbis/icuriskr). At the time of
-  writing, I believe `icuriskr` is a stale repository, including a
-  dependency on the `ICD` (International Classification of Diseases) `R`
-  Package which has been removed from CRAN, and also beware `icuriskr`
-  contains a minor error in the calculation of pH component of the
-  Apache III score
 - If you believe other (adult or paediatric) scores should be added
   (APACHE2, ANZROD, PIM2, PIM3, Trauma Severity Score, SOFA …) please
-  feel free to create an issue (+/- pull request).
+  feel free to create an
+  [issue](https://github.com/mcshaz/icuscoreR/issues) (± [pull
+  request](https://github.com/mcshaz/icuscoreR/pulls)).
 
 ## Contributing
 
@@ -114,8 +109,8 @@ please:
 - Please include documentation(`roxygen2`) and tests (`testthat`) with
   the pull request.
 - Code style follows the [Tidyverse style
-  guide](https://style.tidyverse.org/)
-- Read the design principles of the library below
+  guide](https://style.tidyverse.org/).
+- Read the design principles of the library below:
 
 ### Design Principles
 
@@ -124,13 +119,13 @@ please:
   these functions could be executed on a multinational ICU database with
   100 000 rows of patient data (and many fold more Arterial Blood Gas
   results).
-- Consider different use cases and database structures
-- Reference clear and publicly available data dictionaries
+- Consider different use cases and database structures.
+- Reference clear and publicly available data dictionaries.
 - Generate composite scores where feasible - the researcher using the
   score may wish to include or exclude certain components because that
-  is the exact component under investigation
+  is the exact component under investigation.
 - Differentiate NA from a score of 0 even if 0 is the final score
-  contributed
+  contributed.
 
 ## References
 
