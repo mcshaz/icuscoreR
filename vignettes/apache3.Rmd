@@ -1,9 +1,9 @@
 ---
-title: "ApacheIII score"
+title: "Apache 3"
 output: rmarkdown::html_vignette
 bibliography: "../REFERENCES.bib"
 vignette: >
-  %\VignetteIndexEntry{ApacheIII score}
+  %\VignetteIndexEntry{Apache 3}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,9 +15,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-## APACHE III
+## Background to the APACHE III Score
 
-The Acute Physiology And Chronic Health Evaluation (APACHE) III@Knaus1991-be is a scoring system for patients admitted to an intensive Care Unit (ICU). The score assigned is based on age, presence of one of a small number of chronic health conditions (see [ap3_comorbidity_scores]), physiological observations (obs) such as heart rate,
+The Acute Physiology And Chronic Health Evaluation (APACHE) III @Knaus1991-be is a scoring system for patients admitted to an intensive Care Unit (ICU). The score assigned is based on age, presence of one of a small number of chronic health conditions (see [ap3_comorbidity_scores]), physiological observations (obs) such as heart rate,
 and laboratory results including glucose, Arterial Blood Gasses (ABG), serum sodium etc.
 Scores are based on the highest and lowest values within a 24 hour interval beginning
 at ICU admission. For some measures, only if no data were available in this 24 hours,
@@ -29,23 +29,22 @@ of intensive care mortality, but also morbidity.
 ### Caveats in application of Apache III
 - An individual patient may have multiple hospital admissions, and within each hospital admission, may have multiple ICU admissions. The score was validated for each ICU admission episode, so please ensure the correct identifier is used to group data.
 - The original paper is from 1991. While the score is still valid, applying coefficients
-presented in the original paper will not be a valid predictor of risk of death because both the ICU patient cohort and systems of care have changed significantly since publication. Many papers and international registries provide coefficients re-calibrated to more contemporary ICU mortality.
+presented in the original paper will not be a valid predictor of risk of death, because  the cohort of patients admitted into ICU, treatments available, and systems of care have all changed significantly since publication. Many papers and international registries provide coefficients re-calibrated to more contemporary ICU mortality.
 - Because Apache III scores are generated using data from the 24 hours from admission, a researcher must consider carefully how to include the score in a risk adjusted analysis. For example, if a treatment is designed to raise or lower blood pressure and is administered within 24 hours of ICU admission, the intervention effect will alter the APACHE III score, making the score a poor candidate as a dependent/predictor variable when modelling blood pressure. This package returns each component of the score, and in this example the researcher should remove the blood pressure component before summing together the total score.
-- If using the Apache scores to benchmark risk adjusted mortality, and a significant number of your patient cohort who die, do so within a few days of ICU admission, Apache scores (and the Standardised Mortality Ratios (SMR) based on this score) may not be an appropriate method of risk adjustment when comparing intensive care unit performance. For a detailed explanation see Shann@Shann2000-zh.
+- If using the Apache scores to benchmark risk adjusted mortality, and a significant number of your patient cohort who die, do so within a few days of ICU admission, Apache scores (and the Standardised Mortality Ratios (SMR) based on this score) may not be an appropriate method of risk adjustment when comparing intensive care unit performance. For a detailed explanation see @Shann2000-zh.
 
-## Data format
+## Data Format
 The `R` Data Frame must contain the field names (case insensitive) described in the
-Australia New Zealand Intensive Care Society (ANZICS) Adult Patient Data (APD)
-Data Dictionary@apddatadictionary. The field names are case insensitive.  and the `HI` and
-`LO` suffixes on field names such as 'HRHI' and 'HRLO' are optional (`HR` is acceptable if only 1 extreme value is available, or if the `HR` data for each `IcuEpisodeId` is spread over multiple rows).
+@apddatadictionary Data Dictionary. The field names are case insensitive. The 'HI' and
+'LO' suffixes on field names such as 'HRHI' and 'HRLO' are optional (i.e. 'HR' is acceptable, for instance if only 1 extreme value is available, or if the 'HR' data for each 'IcuEpisodeId' is spread over multiple rows).
 Each `data.frame` must have an 'IcuEpisodeId' field.
 
 ## Setup
-Appendix B of the Apache III article@@Knaus1991-be describes 2 patients and calculation of their corresponding Apache III score. These 2 patients are included in a `data.frame`. The [add_miss_ap3_cols()] function checks the column names of the `data.frame` (or `tibble`) conform to the column names required. Any missing columns are added with the appropriate name and `NA` values. This is important to check before calculating the Apache III score.
-The arterial blood gasses (ABGs) are in a separate `data.frame`, in order to reflect real world data structures and workflows.
+Appendix B of @Knaus1991-be describes 2 patients and calculation of their corresponding Apache III score in detail. These data are included in a `data.frame`. After loading the data, the [add_miss_ap3_cols()] function checks the column names of the `data.frame` conform to the column names required. Any missing columns are added with the appropriate name, consisting entirely of `NA` values. This is important to check before calculating the Apache III score.
+The arterial blood gasses (ABGs) are in a separate `data.frame`.
 
 *note*
-Adhering to the data dictionary, the serum sodium column is named after its atomic symbol `Na'. This can be confusing in `R`, where `NA` is a datum value representing unknown or missing values.
+Adhering to the data dictionary, the serum sodium column is named after its atomic symbol 'Na'. This can be confusing in `R`, where `NA` is a scalar representing unknown or missing values.
 
 ```{r setup}
 library(icuscorer)
@@ -55,7 +54,7 @@ data("ap3_appendix_gas")
 ```
 
 ### Units of measure
-Please note the units for lab data are all in mmol or μmol/L as outlined for each field in the Data Dictionary@apddatadictionary. If any columns are recorded in mg/dL
+Please note the units for lab data are all in mmol or μmol/L as outlined for each field in the Data Dictionary (@apddatadictionary). If any columns are recorded in mg/dL
 theses data can be converted using a `data.frame` named 'lab_conversions' as below.
 ```{r}
 my.icu.data <- data.frame(
@@ -77,10 +76,10 @@ within(my.icu.data, {
 ```
 
 ## Score Generation
-ABG and comorbidity scores are analysed seperately to the other components of the score to reflect real world data structures. It is assumed the researcher has filtered the gasses to those obtained within 24 hours of ICU admission. The comorbidity score is calculated bases on simple text comparison, and is mainly included for examples - the method you use for calculating comorbidity will very much depend on your ICU data structure. The diagnostic categories and assigned Apache III scores can be viewed in the [ap3_comorbidity_score] named vector.
+ABG and comorbidity scores are analysed seperately to the other components of the score to reflect real world data structures. It is assumed the researcher has filtered the gasses to those obtained within 24 hours of ICU admission. The comorbidity score is calculated bases on simple text comparison, and the [apache3_comorb()] function is primarily included for the sake of examples like this. The method you use for calculating comorbidities will very much depend on your ICU data structure, nomenclature and diagnosis codes. The diagnostic categories and assigned Apache III scores can be viewed by loading `data("ap3_comorbidity_score")`.
 
 *note*
-Apache III methodology states unknown measures are assigned an Apache score of 0, but the composite scores propagate `NA`, so that the researcher may examine data for patterns of missingness. It is assumed coalescing `NA`s to 0 will occur in the next step [Total Apache III Score].
+Apache III methodology states unknown measures are assigned an Apache score of 0, but the composite scores propagate `NA`. This is intentional, so that the researcher may examine data for "patterns of missingness". It is assumed coalescing `NA`s to 0 will occur when calculating the total Apache Score (below).
 
 ```{r}
 ap3.scores <- apache3(ap3_appendix_example)
@@ -101,3 +100,5 @@ ap3.scores <- merge(ap3.scores, ap3.comorb.scores, by = "icuepisodeid")
 ap3.scores$total <- rowSums(ap3.scores[,endsWith(colnames(ap3.scores), '_ap3score')], na.rm = TRUE)
 ap3.scores
 ```
+
+## References

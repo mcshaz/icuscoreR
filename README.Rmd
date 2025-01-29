@@ -41,7 +41,8 @@ Extensive and clearly written resources regarding variable collection, nomeclatu
 You can install the development version of [icuscoreR on GitHub](https://github.com/mcshaz/icuscoreR) with:
 
 ``` r
-# install.packages("pak")
+# use devtools or remotes if you have either package installed, otherwise
+# install.packages("pak") 
 pak::pkg_install("mcshaz/icuscoreR")
 ```
 
