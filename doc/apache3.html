@@ -396,12 +396,12 @@ mortality.</li>
 from admission, a researcher must consider carefully how to include the
 score in a risk adjusted analysis. For example, if a treatment is
 designed to raise or lower blood pressure and is administered within 24
-hours of ICU admission, the intervention effect will alter the APACHE
-III score, making the score a poor candidate as a dependent/predictor
-variable when modelling blood pressure. This package returns each
-component of the score, and in this example the researcher should remove
-the blood pressure component before summing together the total
-score.</li>
+hours of ICU admission, the intervention <em>effect</em> may alter the
+APACHE III score, making the score a poor candidate as an
+independent/predictor variable in the risk adjusted model of blood
+pressure. This package returns each component of the score, and in this
+example the researcher should remove the blood pressure component before
+summing together the total score.</li>
 <li>If using the Apache scores to benchmark risk adjusted mortality, and
 a significant number of your patient cohort who die, do so within a few
 days of ICU admission, Apache scores (and the Standardised Mortality
