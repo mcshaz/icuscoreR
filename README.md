@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+stable](https://img.shields.io/badge/Lifecycle-Stable-brightgreen)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/icuscoreR)](https://CRAN.R-project.org/package=icuscoreR)
 <!-- badges: end -->
