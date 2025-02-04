@@ -36,7 +36,7 @@ apache3_comorb <- function(comorbs) {
         0L,
         replace_matches(
           .data$comorb,
-          ap3_comorbidity_scores
+          icuscorer::ap3_comorbidity_scores
         ),
         NA_integer_
       )

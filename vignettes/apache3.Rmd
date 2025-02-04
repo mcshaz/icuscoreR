@@ -1,9 +1,9 @@
 ---
-title: "Apache 3"
+title: "Apache3"
 output: rmarkdown::html_vignette
-bibliography: "../REFERENCES.bib"
+bibliography: "REFERENCES.bib"
 vignette: >
-  %\VignetteIndexEntry{Apache 3}
+  %\VignetteIndexEntry{Apache3}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
